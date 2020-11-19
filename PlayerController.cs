@@ -129,7 +129,17 @@ namespace Platformer.Mechanics
             targetVelocity = move * maxSpeed;
         }
 
+        //Colisão com o checkpoint e alterando o lugar do respawn
+        void OnTriggerEnter2D(Collider2D col)
+        {
+            if (col.tag.Equals("CheckPoint"))
+            {
+                GameObject.FindWithTag("Respawn").transform.position = col.transform.position;
+                col.GetComponent<Animator>().Play("CheckPointAnimDead");
+                col.enabled = false;
+            }
 
+        }
 
         public enum JumpState
         {
