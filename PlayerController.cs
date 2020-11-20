@@ -63,48 +63,11 @@ namespace Platformer.Mechanics
                     stopJump = true;
                     Schedule<PlayerStopJump>().player = this;
                 }
-
-
-                #region Implementação de joystick
-
-                if (Input.GetMouseButtonDown(0))
-                {
-                    pointA = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.z));
-
-                }
-                if (Input.GetMouseButton(0))
-                {
-                    touchStart = true;
-                    pointB = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.z));
-                }
-                else
-                {
-                    touchStart = false;
-                }
-
-                if (touchStart)
-                {
-                    Vector2 offset = pointB - pointA;
-                    Vector2 direction = Vector2.ClampMagnitude(offset, 1.0f);
-
-                    move.x = direction.x;
-
-                }
-
-
-
-                #endregion
-
-
             }
             else
             {
                 move.x = 0;
             }
-
-
-
-
             UpdateJumpState();
             base.Update();
         }
@@ -176,7 +139,6 @@ namespace Platformer.Mechanics
                 col.enabled = false;
             }
 
-           
             if (col.tag.Equals("Jumper"))
             {
                 velocity.y = (jumpTakeOffSpeed + 2) * model.jumpModifier;
