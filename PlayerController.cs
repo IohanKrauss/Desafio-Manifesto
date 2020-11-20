@@ -185,6 +185,18 @@ namespace Platformer.Mechanics
             }
         }
 
+
+        public void Jumping()
+        {
+            if (jumpState == JumpState.Grounded)
+                jumpState = JumpState.PrepareToJump;
+            else
+            {
+                stopJump = true;
+                Schedule<PlayerStopJump>().player = this;
+            }
+        }
+
         public enum JumpState
         {
             Grounded,
