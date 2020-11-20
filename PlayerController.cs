@@ -139,6 +139,12 @@ namespace Platformer.Mechanics
                 col.enabled = false;
             }
 
+            if (col.tag.Equals("Jumper"))
+            {
+                velocity.y = (jumpTakeOffSpeed + 2) * model.jumpModifier;
+                jump = false;
+
+            }
         }
 
         public enum JumpState
