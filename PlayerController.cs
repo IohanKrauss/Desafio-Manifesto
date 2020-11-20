@@ -42,6 +42,11 @@ namespace Platformer.Mechanics
 
         public Bounds Bounds => collider2d.bounds;
 
+        //variaveis do joystick
+        private bool touchStart = false;
+        private Vector2 pointA;
+        private Vector2 pointB;
+
         void Awake()
         {
             health = GetComponent<Health>();
@@ -63,6 +68,40 @@ namespace Platformer.Mechanics
                     stopJump = true;
                     Schedule<PlayerStopJump>().player = this;
                 }
+
+
+                #region Implementação de joystick
+
+                if (Input.GetMouseButtonDown(0))
+                {
+                    pointA = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.z));
+
+                }
+                if (Input.GetMouseButton(0))
+                {
+                    touchStart = true;
+                    pointB = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.z));
+                }
+                else
+                {
+                    touchStart = false;
+                }
+
+                if (touchStart)
+                {
+                    Vector2 offset = pointB - pointA;
+                    Vector2 direction = Vector2.ClampMagnitude(offset, 1.0f);
+
+                    move.x = direction.x;
+
+                }
+
+
+
+                #endregion
+
+
+
             }
             else
             {
